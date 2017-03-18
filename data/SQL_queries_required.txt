@@ -1,0 +1,27 @@
+SQL queries required:
+
+find SH name from phone number
+
+write time to emergency time
+write long description to emergency long description
+write location to emergency location
+
+given an emergency ID, return list of of SH IDs of superheros with necessary traits
+
+read calendar address from SH if that's what Chronofy needs
+write availability thing to SH availability
+return list of SH IDs of those available
+
+read SH locations
+write SH distance from emergency (in CB)
+
+read SH distance from emergency
+match emergency desirable powers with SH powers
+return these powers
+find fraction number of matched desirable powers/emergency desirable powers
+write ranking number (numeric)
+sort by ranking number and extract the SH IDs of e.g. the 1st, 2nd 3rd in the ranking or 4th, 5th, 6th
+
+using SH ID and emergency ID, extract hero name, phone number, emergency long message and emergency location
+
+given power, find SH IDs of heroes with that power

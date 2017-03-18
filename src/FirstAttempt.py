@@ -5,7 +5,7 @@
 import numpy as np
 
 ####################################################
-################# Find Distance #################
+################# Calculations #####################
 ####################################################
 
 def find_distance(SH_loc,scen_loc):
@@ -22,12 +22,18 @@ def find_distance(SH_loc,scen_loc):
     c = 2*np.math.atan2(np.sqrt(a), np.sqrt(1-a))
     return R*c
 
+def find_ranking(distance, fraction_desirable_traits):
+    #ranking function preferably around range 0-100
+    #the lower the distance and higher desirable traits the better
+    #return number
+    return 1
+
 ####################################################
 ################# SCREEN DISPLAY ###################
 ####################################################
 
 def gotoscreen1():
-    #buttons -> blank apart from button 2 = arrange meeting
+    #buttons -> blank apart from button 2 = arrange meeting ##FOR NOW: JUST BLANK##
     #messages, title + world map
     pass
 
@@ -56,6 +62,11 @@ def screen3_add_buttons(to_display):
     pass
 
 def screen4_add_buttons():
+    #display 4 teams on buttons:
+    #1: Avengers
+    #2: Justice League
+    #3: X-Men
+    #Team Hacky McHackface
     pass
 
 def deactivate_button(button):
@@ -165,9 +176,9 @@ def write_distances(SH_IDs):
     pass
 
 def write_rankings(emergency_ID,SH_IDs):
-    #read locations of SH_IDs
+    #read distances of SH_IDs from emergency_ID
     #find fraction of desirable traits of emergency_ID that match with traits of SH_IDs
-    #calculate rankings with find_ranking(distance, fraction_desirable_traits
+    #calculate rankings with find_ranking(distance, fraction_desirable_traits)
     #write rankings to database
     pass
 
@@ -183,18 +194,59 @@ def send_request(hero_name,hero_phone,emergency_message,emergency_location):
     #send message to hero detailing emergency using info in arguments
     pass
 
-def hero_selected(hero_ID,button_pressed):
+def hero_selected(hero_ID,emergency_ID):
     #get hero name, hero phone number, emergency long message and emergency location from database
     #send_request(hero_name,hero_phone,emergency_message,emergency_location)
-    deactivate_button(button_pressed)
+    pass
 
-def send_team():
+def team_selected(team,emergency_ID):
+    #for now summons available team members
+    #could later be modded to find the next time they are all free and summon them then
+    if team == 1:
+        #team_IDs = SQL query for Avengers' IDs
+        pass
+    if team == 2:
+        # team_IDs = SQL query for Justice League's IDs
+        pass
+    elif team ==3:
+        # team_IDs = SQL query for X-Men's IDs
+        pass
+    else:
+        # team_IDs = SQL query for Hacky McHackface's IDs
+        pass
+    team_IDs = [1,2,3,4] #placeholder
+
+    available_team_IDs = find_available_heroes(team_IDs)
+
+    for hero_ID in available_team_IDs:
+        hero_selected(hero_ID,emergency_ID)
+
+    deactivate_button(team)
+
+
+def send_team(emergency_ID):
     screen4_add_buttons()
+    # check for events
+    while True:
+        button_pressed = buttons_check()
+        message_received = message_check()
+        if button_pressed in [1, 2, 3, 4]:
+            # team seleceted
+            team_selected(button_pressed,emergency_ID)
+        elif button_pressed == 5:
+            # "no (further) action" (/"home") selected
+            home_screen()
+        elif message_received:
+            if message_received in ['Y', 'N']:
+                display_message(message_received)
+            else:
+                display_message(message_received)
+                print("another emergency message! can't deal with more than one at a time, sorry!")
     pass
 
 ####### MAIN EMERGENCY FUNCTION ######################
 
-def display_page_3(page):
+def display_page_3(page,emergency_ID):
     #find heroes for this page
     to_display = find_top_3(page)
     # display buttons
@@ -206,10 +258,11 @@ def display_page_3(page):
         if button_pressed in [1, 2, 3]:
             # hero seleceted
             hero_ID = to_display[button_pressed]
-            hero_selected(hero_ID,button_pressed)
+            hero_selected(hero_ID,emergency_ID)
+            deactivate_button(button_pressed)
         elif button_pressed == 4:
             # send team selected
-            send_team()
+            send_team(emergency_ID)
         elif button_pressed == 5:
             # "no (further) action" (/"home") selected
             home_screen()
@@ -217,16 +270,17 @@ def display_page_3(page):
             #"back" selected
             if page > 1:
                 page -= 1
-                display_page_3(page)
+                display_page_3(page,emergency_ID)
         elif button_pressed == 7:
             # "more" selected
             if page < 6:
                 page += 1
-                display_page_3(page)
+                display_page_3(page,emergency_ID)
         elif message_received:
             if message_received in ['Y', 'N']:
                 display_message(message_received)
             else:
+                display_message(message_received)
                 print("another emergency message! can't deal with more than one at a time, sorry!")
 
 def emergency(emergency_ID):
@@ -236,7 +290,7 @@ def emergency(emergency_ID):
     suitable_available_heroes = find_available_heroes(suitable_heroes)
     write_distances(suitable_available_heroes)
     write_rankings(emergency_ID,suitable_available_heroes)
-    display_page_3(1)
+    display_page_3(1,emergency_ID)
 
 ####################################################
 ################# MEETING ##########################

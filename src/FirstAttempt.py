@@ -5,6 +5,7 @@
 
 import numpy as np
 import time
+from ioInterface import *
 
 ####################################################
 ################# Calculations #####################
@@ -75,50 +76,10 @@ def display_message(message_response):
 ################# CHECKING FOR EVENTS ##############
 ####################################################
 
-########### Checking for button presses ############
-
-#checks return true if pressed, false if not
-def button1check():
-    return False
-
-def button2check():
-    return False
-
-def button3check():
-    return False
-
-def button4check():
-    return False
-
-def button5check():
-    return False
-
-def button6check():
-    return False
-
-def button7check():
-    return False
-
-
 def buttons_check():
     #Return 0 for no button
     #i for button i (i 1 to 7)
-    if button1check():
-        return 1
-    elif button2check():
-        return 2
-    elif button3check():
-        return 3
-    elif button4check():
-        return 4
-    elif button5check():
-        return 5
-    elif button6check():
-        return 6
-    elif button7check():
-        return 7
-    else:
-        return 0
+    return ioGetStates()
 
 ######## Checking for emergencies ##################
 def emergency_read(message_text):

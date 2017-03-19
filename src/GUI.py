@@ -93,6 +93,35 @@ class Ui_MainWindow(object):
     def clickHandler(self, channel):
         print(channel)
 
+    def button1(self):
+        ##The Blue Button
+        return 0
+
+    def button2(self):
+        ##The Red Button
+        return 0
+
+    def button3(self):
+        ##The Yellow Button
+        return 0
+
+    def button4(self):
+        ##The Green Button
+        return 0
+
+    def button5(self):
+        ##The Black Button
+        return 0
+
+    def button6(self):
+        ##The Purple Button
+        return 0
+
+    def button7(self):
+        ##The white button
+        return 0
+
+
 import worldMap_rc
 
 if __name__ == "__main__":

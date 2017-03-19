@@ -1,27 +1,122 @@
 SQL queries required:
 
-find SH name from phone number
+1) find SH name from phone number
+----------------------
+Select SH_Name from SH_main where SH_Phone_No='07123456789';
 
-write time to emergency time
+
+2) write time to emergency time
 write long description to emergency long description
 write location to emergency location
+---------------------------------------
+Insert into EMER_OCC (EMER_OCC_ID, EMER_OCC_LAT, EMER_OCC_LONG, EMER_OCC_DATETIME) values (2,49.4546784,-56.4567898,'20170301_2038');
 
-given an emergency ID, return list of of SH IDs of superheros with necessary traits
 
-read calendar address from SH if that's what Chronofy needs
-write availability thing to SH availability
-return list of SH IDs of those available
+3) given an emergency ID, return list of of SH IDs of superheros with necessary traits
+-----------------------------------------------------------------------------
+For an emergency with Emer_Occ_ID equal to 3:
 
-read SH locations
-write SH distance from emergency (in CB)
+Select SM.SH_ID 
+From Emer_Occ as EO
+Inner join SH_Powers_Have as SPH 
+On EO.Emer_Powers_essen = SPH.Power_ID
+Inner join SH_Main as SM
+On SPH.SH_ID = SM.SH_ID
+Where Emer_Occ_id = '3';
 
-read SH distance from emergency
-match emergency desirable powers with SH powers
-return these powers
-find fraction number of matched desirable powers/emergency desirable powers
-write ranking number (numeric)
-sort by ranking number and extract the SH IDs of e.g. the 1st, 2nd 3rd in the ranking or 4th, 5th, 6th
 
-using SH ID and emergency ID, extract hero name, phone number, emergency long message and emergency location
+4) i) read calendar address from SH if that's what Cronofy needs
+ii) write availability thing to SH availability
+iii) return list of SH IDs of those available
+---------------------------------------------
+i) *** <Need input from Matt here - I need to know what fields need to be added to DB so I can write SQL query for it> ***
 
-given power, find SH IDs of heroes with that power
+ii) For SH with SH_ID of 1 being Available (need to run both queries!):
+
+Update SH_MAIN Set SH_Avail_YesNo=1 Where SH_ID=1; 
+Update Combined_SH_EmerOcc Set CB_Avail_YesNo=1 Where CB_SH_ID=1;
+
+For SH with SH_ID of 1 NOT being Available:
+
+Update SH_MAIN Set SH_Avail_YesNo=0 Where SH_ID=1; 
+Update Combined_SH_EmerOcc Set CB_Avail_YesNo=0 Where CB_SH_ID=1;
+
+iii) (need to run both queries!)
+select SH_ID from SH_Main where SH_Avail_YesNo=1;
+select CB_SH_ID from Combined_SH_EmerOcc where CB_Avail_YesNo=1;    
+
+
+5) read SH locations
+--------------------------------------------
+Select SH_ID, SH_Lat, SH_Long from SH_Location;
+
+
+6) write SH distance from emergency (in CB)
+--------------------------------------------
+Update Combined_SH_EmerOcc set CB_Distance = 45 where CB_SH_ID=3;
+
+
+7) read SH distance from emergency
+---------------------------------------
+Select CB_Distance, CB_SH_ID from Combined_SH_EmerOcc where CB_Emer_ID=2;
+
+
+8) match emergency desirable powers with SH powers & return these powers - assuming you want a unique (non-duplicated list): 
+---------------------------------------
+Select distinct SPH.Power_ID, SPH.Power_Name 
+into t1
+From Emer_Occ as EO
+Inner join SH_Powers_Have as SPH 
+On EO.Emer_Powers_desir = SPH.Power_ID
+Inner join SH_Main as SM
+On SPH.SH_ID = SM.SH_ID
+Where EO.Emer_Occ_id = '3';
+
+select * from t1;
+
+9) find fraction number of matched desirable powers/emergency desirable powers **CHECK Syntax!!**
+---------------------------------------
+Select count(*) as count_all_desirable_powers
+into t2
+from Powers_Lookup
+
+Select SH_ID, count(*) as count_matched_desirable_powers
+into t3
+from t1
+group by SH_ID;
+
+Select t3.SH_ID,(t3.count_matched_desirable_powers * 100 / t2.count_all_desirable_powers) as CB_CalcPercentage_Desi_Powers 
+into t4
+from t3, t2;
+
+11) write ranking number (numeric) - **CHECK Syntax!!**
+---------------------------------------
+update Combined_SH_EmerOcc 
+set CB_Percentage_Desi_Powers = t4.CB_CalcPercentage_Desi_Powers 
+from t4
+where Combined_SH_EmerOcc.CB_SH_ID=t4,SH_ID;
+
+
+12) sort by ranking number and extract the SH IDs of e.g. the 1st, 2nd 3rd in the ranking or 4th, 5th, 6th
+---------------------------------------------------------
+select top 3 CB_SH_ID 
+from Combined_SH_EmerOcc
+order by CB_Percentage_Desi_Powers Desc
+;
+
+
+13) using SH ID and emergency ID, extract hero name, phone number, emergency long message and emergency location - **CHECK Syntax!!**
+---------------------------------------------------------
+select SM.SH_Name, SM.SH_Phone_Number, EO.Emer_Occ_Desc, EO.Emer_Occ_Desc, EO.Emer_Occ_Lat, EO.Emer_Occ_Long
+from SH_Main as SM 
+Inner Join Combined_SH_EmerOcc as CSE
+on SM.SH_ID = CSE.CB_SH_ID
+Inner join Emer_Occurence as EO
+on CSE.CB_Emer_ID = EO.Emer_Occ_ID
+;
+
+14) given power, find SH IDs of heroes with that power
+---------------------------------------------------------
+select SH_ID
+from SH_Powers_Have
+where Power_ID=4;

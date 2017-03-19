@@ -2,7 +2,7 @@
 #######
 #
 #######
-
+import GUI
 import numpy as np
 import time
 
@@ -326,11 +326,4 @@ def home_screen():
             meeting()
 
 #switch_LEDs(1111)
-#home_screen()
-
-
-
-
-
-
-
+home_screen()

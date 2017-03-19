@@ -74,15 +74,6 @@ def display_message(message_response):
     #   display message: "name" has declined request
     pass
 
-####################################################
-################# CHECKING FOR EVENTS ##############
-####################################################
-
-def buttons_check():
-    #Return 0 for no button
-    #i for button i (i 1 to 7)
-    return ioGetStates()
-
 ######## Checking for emergencies ##################
 def emergency_read(message_text):
     #write time received to database
@@ -179,7 +170,6 @@ def send_team(emergency_ID):
     screen4_add_buttons()
     # check for events
     while True:
-        button_pressed = buttons_check()
         message_received = message_check()
         if button_pressed in [1, 2, 3, 4]:
             # team seleceted
@@ -204,7 +194,6 @@ def display_page_3(page,emergency_ID):
     screen3_add_buttons(to_display)
     # check for events
     while True:
-        button_pressed = buttons_check()
         message_received = message_check()
         if button_pressed in [1, 2, 3]:
             # hero seleceted
@@ -258,7 +247,6 @@ def home_screen():
 #HOME SCREEN - START HERE
     gotoscreen1()
     while True:
-        button_pressed = buttons_check()
         message_received = message_check()
         if message_received:
             if message_received in ['Y','N']:
@@ -279,7 +267,7 @@ class thewindow(QtWidgets.QMainWindow):
 import sys
 import receiver
 
-esend = receiver.SMS_Reciever("d")
+esend = receiver.SMS_Reciever()
 esend.getMessages()
 emergency(esend.getMostRecentMessage())
 

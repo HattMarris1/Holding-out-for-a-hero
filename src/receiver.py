@@ -25,6 +25,6 @@ class SMS_Reciever:
         print(message, number)
         return message,number
 
-s = SMS_Reciever("d")
+s = SMS_Reciever()
 s.getMessages()
 s.getMostRecentMessage()

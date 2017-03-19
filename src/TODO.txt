@@ -1,0 +1,38 @@
+Functions that need completing:
+
+Python only:
+-find_ranking
+
+Display:
+-gotoscreen1
+-print_emergency_message
+-go_to_location (low priority)
+-screen3_add_buttons
+-screen4_add_buttons
+-deactivate_button
+-display_message (+ esendex)
+
+
+RaspPI interface:
+-button1check, button2check etc.
+-switch_LEDs
+
+Needs SQL:
+-emergency_read
+-find_suitable_heroes
+-find_available_heroes (+Chronofy)
+-write_rankings
+-find_top_3
+-team_selected
+
+Needs Chronofy:
+-find_available_heroes (+SQL)
+
+Needs esendex:
+-display_message (+ display)
+-message_check
+-send_request
+
+Extra functionality to add:
+-Make LEDs flash (potentially also lights sound) when emergency comes in
+-Set up meetings!

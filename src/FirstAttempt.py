@@ -1,8 +1,10 @@
+#!/usr/bin/env python
 #######
 #
 #######
 
 import numpy as np
+import time
 
 ####################################################
 ################# Calculations #####################
@@ -37,16 +39,6 @@ def gotoscreen1():
     #messages, title + world map
     pass
 
-def gotoscreen2():
-    print('Screen 2')
-
-
-def gotoscreen4():
-    print('Screen 4')
-
-def gotoscreen5():
-    print('Screen 5')
-
 def print_emergency_message(time,description,location):
     #print message on screen including time description and location
     pass
@@ -66,7 +58,7 @@ def screen4_add_buttons():
     #1: Avengers
     #2: Justice League
     #3: X-Men
-    #Team Hacky McHackface
+    #4: Team Hacky McHackface
     pass
 
 def deactivate_button(button):
@@ -81,7 +73,22 @@ def display_message(message_response):
     #   display message: "name" has declined request
     pass
 
+####################################################
+################# LEDs #############################
+####################################################
 
+def switch_LEDs(bin):
+    #bin = list of 4 0s or 1s
+    #turn on the LEDs with 1s, off with 0s
+    pass
+
+def flash_LEDs():
+    for j in range(5):
+        time.sleep(.5)
+        switch_LEDs(1111)
+        time.sleep(.5)
+        switch_LEDs(0000)
+        j += 1
 
 ####################################################
 ################# CHECKING FOR EVENTS ##############
@@ -285,6 +292,7 @@ def display_page_3(page,emergency_ID):
 
 def emergency(emergency_ID):
     print('emergency')
+    flash_LEDs()
     #filter and rank heroes
     suitable_heroes = find_suitable_heroes(emergency_ID)
     suitable_available_heroes = find_available_heroes(suitable_heroes)
@@ -317,8 +325,8 @@ def home_screen():
         elif button_pressed == 2:
             meeting()
 
-
-home_screen()
+#switch_LEDs(1111)
+#home_screen()
 
 
 

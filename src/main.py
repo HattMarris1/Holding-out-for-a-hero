@@ -242,8 +242,23 @@ def meeting(channel):
     if (channel==8):
         esender = sender.SMS_Sender("df")
         esender.send_message("HELP EMERGENCY", "07531661956")
-   # print(channel)
-    
+    # print(channel)
+
+    if (channel==7):
+       worldMapOff()
+       esender = sender.SMS_Sender("df")
+       eSender.send_message("Hulk needed for to take over from President Trump due to incompetence!", "07531661956")
+    # print(channel)
+
+#Toggle worldMap off
+def worldMapOff():
+    win = Ui_MainWindow()
+    win.label.setPixmap(QtGui.QPixmap(""))
+
+#Toggle worldMap on
+def worldMapOn():
+    win = Ui_MainWindow()
+    win.label.setPixmap(QtGui.QPixmap(":/images/worldMap.jpg"))
 
 ####################################################
 ################# MAIN FUNCTION ####################

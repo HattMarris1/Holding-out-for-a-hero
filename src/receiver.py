@@ -1,7 +1,12 @@
 import requests
 import xml.etree.ElementTree as etree
+<<<<<<< HEAD
 class SMS_Reciever:
     def __init__(self):
+=======
+class SMS_Receiver:
+    def __init__(self, acc):
+>>>>>>> functionality
         self.REQUESTTARGET = "https://api.esendex.com/v1.0/inbox/messages"
         self.requestMethod = "GET"
 
@@ -19,12 +24,16 @@ class SMS_Reciever:
 
     def getMostRecentMessage(self):
         tree = etree.fromstring(self.response.text)
-
         number = tree[0][8][0].text
         message = tree[0][9].text
+<<<<<<< HEAD
         print(message, number)
         return message,number
 
 s = SMS_Reciever()
 s.getMessages()
 s.getMostRecentMessage()
+=======
+        #print(message, number)
+        return message
+>>>>>>> functionality

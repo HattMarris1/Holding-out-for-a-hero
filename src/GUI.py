@@ -88,6 +88,7 @@ class Ui_MainWindow(object):
         self.messageBox3.setText(_translate("MainWindow", "TextLabel"))
         self.messageBox4.setText(_translate("MainWindow", "TextLabel"))
 
+
 import worldMap_rc
 
 if __name__ == "__main__":

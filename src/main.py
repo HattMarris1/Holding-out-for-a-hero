@@ -5,7 +5,8 @@
 import GUI
 import numpy as np
 import time
-
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QEvent
 ####################################################
 ################# Calculations #####################
 ####################################################
@@ -325,5 +326,29 @@ def home_screen():
         elif button_pressed == 2:
             meeting()
 
+class thewindow(QtWidgets.QMainWindow):
+    def timerEvent(self, event):
+        esend.getMessages()
+        emergency(esend.getMostRecentMessage())
+        display_message(esend.getMostRecentMessage())
+        print("asdf")
+
 #switch_LEDs(1111)
-home_screen()
+import sys
+import receiver
+
+esend = receiver.SMS_Reciever("d")
+esend.getMessages()
+emergency(esend.getMostRecentMessage())
+
+app = QtWidgets.QApplication(sys.argv)
+MainWindow = thewindow()
+ui = GUI.Ui_MainWindow()
+ui.setupUi(MainWindow)
+MainWindow.startTimer(5000)
+
+#xui.blueButton = #SQL Query?
+#ui.redButton = #
+#ui.messageBox1 = #endedex message
+MainWindow.show()
+sys.exit(app.exec_())

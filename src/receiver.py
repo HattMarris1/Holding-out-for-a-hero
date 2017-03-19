@@ -16,10 +16,16 @@ class SMS_Reciever:
             'postman-token': "47f80f72-7c47-8bb1-9537-5dd4fb1e2dfa"
             }
 
-        response = requests.request(self.requestMethod, self.REQUESTTARGET, data=payload, headers=headers)
+        self.response = requests.request(self.requestMethod, self.REQUESTTARGET, data=payload, headers=headers)
 
-    def getMostRecentMessage(self, response):
-        tree = etree.parse(response)
-        root = tree.getroot()
+    def getMostRecentMessage(self):
+        tree = etree.fromstring(self.response.text)
 
-print(response.text)
+        number = tree[0][8][0].text
+        message = tree[0][9].text
+        print(message, number)
+        return message,number
+
+s = SMS_Reciever("d")
+s.getMessages()
+s.getMostRecentMessage()

@@ -337,15 +337,15 @@ def blueButton():
 def yellowButton():
     ui.yellowButton.setStyleSheet("#yellowButton{background-color:rgb(255, 255, 127)}")
     eSender = sender.SMS_Sender()
-    eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
+    eSender.send_message("Hulk needed for to take over from President Trump due to incompetence!", "07531661956")
 def greenButton():
     ui.greenButton.setStyleSheet("#greenButton{background-color:rgb(0,128,0)}")
     eSender = sender.SMS_Sender()
-    eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
+    eSender.send_message("Tech Nottingham has been flooded by Watermelons! Assistance Urgently Needed!", "07531661956")
 def redButton():
     ui.redButton.setStyleSheet("#redButton{background-color:rgb(128,0,0)}")
     eSender = sender.SMS_Sender()
-    eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
+    eSender.send_message("Captain America needed for Forest Fire!", "07531661956")
 
 class thewindow(QtWidgets.QMainWindow):
     def timerEvent(self, event):
@@ -358,14 +358,14 @@ class thewindow(QtWidgets.QMainWindow):
 #switch_LEDs(1111)
 esend = receiver.SMS_Reciever("d")
 esend.getMessages()
-messssage =  esend.getMostRecentMessage()
-#emergency(messssage)
+message =  esend.getMostRecentMessage()
+#emergency(message)
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = thewindow()
 ui = GUI.Ui_MainWindow()
 ui.setupUi(MainWindow)
-MainWindow.startTimer(10000)
+MainWindow.startTimer(60000) #time in milliseconds - currently every 60 seconds
 
 #xui.blueButton = #SQL Query?
 #ui.redButton = #

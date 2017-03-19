@@ -1,0 +1,101 @@
+﻿$ cd ./data
+- Switch to the “data” folder (linux)
+
+$ sqlite3
+- Starting sqlite3
+
+Useful SQLite commands:
+
+sqlite > .open “ControlRoom_test.db”
+- Opens DB in the pwd. If the DB doesn’t exist, it creates it.
+
+sqlite > .tables
+- Shows all tables in DB
+
+sqlite > PRAGMA table_info(Emer_Type);
+- Shows fieldnames and datatypes in tables
+
+Select * from table_name;
+- Show all values in the specified table.
+- Example of a Select statement
+
+Create table SH_Main (SH_ID PRIMARY KEY INTEGER, SH_Name TEXT, ...);
+- Example of a Create table statement being used to create a table with a primary key. 
+
+Insert into table_name (field_name1, field_name2, field_name3… ) values (1,Apple,6);
+- Inserts specified values into specified fieldnames in table.
+
+Troubleshooting insert statements: 
+- 1) Make sure number of fieldnames and values are the same (best to specify all of them rather than those that you just want to update).
+- 2) Column names exist in table
+- 3) Apostophes separate each fieldname and value in the brackets.
+
+Examples of select statements – CHECK alias syntax for tables and field (eg “as SM”) online!
+Put the below query on one line! (spacing for clarity)
+
+Select SM.SH_name, SM.SH_availnow_YesNo, SL.SH_Lat, SL.SH_Long, 
+, 
+From SH_Main as SM
+Inner Join SH_Dislike_SH as SD 
+on SM.SH_ID = SD.SH_ID
+Inner Join SH_Location as SL 
+on SM.SH_ID = SL.SH_ID
+Inner Join SH_Link_Powers SLP
+on SM.SH_ID = SLP.SH_ID
+Inner Join Powers_Have PH
+on SLP.Power_ID = PH.Power_ID
+where  SH_ID = 1 
+and SH_Lat = 78.6766857
+;
+- Show all values from the in the specified tables, with Inner Joins, and criteria in the Where clauses.
+- Only records that match join criteria are returned.
+- Troubleshoot results via taking one line out at a time, considering fieldnames, tablenames being used, and values in those tables. 
+
+Tables in “ControlRoom_test.db”;
+
+SH_Main                   
+SH_ID					INTEGER 	PRIMARY_KEY
+SH_Name				TEXT
+SH_Desc				TEXT
+SH_Group_ID				TEXT 	(NOT NEEDED!)
+SH_Powers_Have			TEXT  (NOT NEEDED!)
+SH_AvailNow_YesNo		INTEGER
+SH_PhoneNumber			INTEGER – Needs to be amended!
+
+SH_Dislike_SH        
+SH_ID					INTEGER	PRIMARY_KEY
+SH_Dislike_ID			INTEGER
+
+SH_Location      
+Emer_Occ_ID				INTEGER	PRIMARY_KEY
+Emer_Occ_Desc			TEXT
+Emer_Occ_Lat			(NUMERIC)
+Emer_Occ_Long			(NUMERIC)
+
+SH_Powers_Have (Example of linked table)
+SH_ID					INTEGER	PRIMARY_KEY
+Power_ID				INTEGER
+
+Emer_Occurence    
+Emer_Occ_ID				INTEGER
+Emer_Occ_Desc			TEXT
+Emer_Occ_Lat			(NUMERIC)
+Emer_Occ_Long			TEXT
+
+Emer_Type            
+Emer_Type_ID 			INTEGER
+Emer_Type_Desc 			TEXT
+Emer_Type_Powers_Essen 		(NUMERIC)
+Emer_Type_Powers_Desir 		(NUMERIC)
+
+Powers_Lookup      
+Power_ID				INTEGER 	PRIMARY_KEY
+Power_Name				TEXT
+Power_Desc				TEXT
+
+Combined_SH_EmerOcc  
+CB_Emer_ID				INTEGER
+CB_SH_ID 				INTEGER
+CB_Distance 				NUMERIC
+CB_Percentage_Desi_Powers	NUMERIC
+CB_Avail_YesNo			INTEGER

@@ -7,6 +7,8 @@ import numpy as np
 import time
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QEvent
+from ioInterface import *
+
 ####################################################
 ################# Calculations #####################
 ####################################################
@@ -26,10 +28,8 @@ def find_distance(SH_loc,scen_loc):
     return R*c
 
 def find_ranking(distance, fraction_desirable_traits):
-    #ranking function preferably around range 0-100
-    #the lower the distance and higher desirable traits the better
-    #return number
-    return 1
+    #ranking function around range 0-100
+    return 70*fraction_desirable_traits + 40/np.sqrt(distance)
 
 ####################################################
 ################# SCREEN DISPLAY ###################
@@ -75,70 +75,13 @@ def display_message(message_response):
     pass
 
 ####################################################
-################# LEDs #############################
-####################################################
-
-def switch_LEDs(bin):
-    #bin = list of 4 0s or 1s
-    #turn on the LEDs with 1s, off with 0s
-    pass
-
-def flash_LEDs():
-    for j in range(5):
-        time.sleep(.5)
-        switch_LEDs(1111)
-        time.sleep(.5)
-        switch_LEDs(0000)
-        j += 1
-
-####################################################
 ################# CHECKING FOR EVENTS ##############
 ####################################################
-
-########### Checking for button presses ############
-
-#checks return true if pressed, false if not
-def button1check():
-    return False
-
-def button2check():
-    return False
-
-def button3check():
-    return False
-
-def button4check():
-    return False
-
-def button5check():
-    return False
-
-def button6check():
-    return False
-
-def button7check():
-    return False
-
 
 def buttons_check():
     #Return 0 for no button
     #i for button i (i 1 to 7)
-    if button1check():
-        return 1
-    elif button2check():
-        return 2
-    elif button3check():
-        return 3
-    elif button4check():
-        return 4
-    elif button5check():
-        return 5
-    elif button6check():
-        return 6
-    elif button7check():
-        return 7
-    else:
-        return 0
+    return ioGetStates()
 
 ######## Checking for emergencies ##################
 def emergency_read(message_text):
@@ -191,10 +134,10 @@ def write_rankings(emergency_ID,SH_IDs):
     pass
 
 def find_top_3(page):
-    ranking_range = range[page*3 - 2:page*3]
+    ranking_range = range(page*3 - 2,page*3)
     #sort database by rankings
     #return list of SH_IDs of those in ranking range.
-    return[2,3,6]
+    return [2,3,6]
 
 ######### SEND A HERO OR TEAM ########################
 
@@ -293,7 +236,6 @@ def display_page_3(page,emergency_ID):
 
 def emergency(emergency_ID):
     print('emergency')
-    flash_LEDs()
     #filter and rank heroes
     suitable_heroes = find_suitable_heroes(emergency_ID)
     suitable_available_heroes = find_available_heroes(suitable_heroes)

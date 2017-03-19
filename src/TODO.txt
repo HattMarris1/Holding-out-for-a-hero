@@ -1,8 +1,5 @@
 Functions that need completing:
 
-Python only:
--find_ranking
-
 Display:
 -gotoscreen1
 -print_emergency_message
@@ -15,7 +12,6 @@ Display:
 
 RaspPI interface:
 -button1check, button2check etc.
--switch_LEDs
 
 Needs SQL:
 -emergency_read
@@ -34,5 +30,4 @@ Needs esendex:
 -send_request
 
 Extra functionality to add:
--Make LEDs flash (potentially also lights sound) when emergency comes in
 -Set up meetings!

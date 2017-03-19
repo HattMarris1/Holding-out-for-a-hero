@@ -1,10 +1,9 @@
 import requests
 import xml.etree.ElementTree as etree
 class SMS_Reciever:
-    def __init__(self, acc):
+    def __init__(self):
         self.REQUESTTARGET = "https://api.esendex.com/v1.0/inbox/messages"
         self.requestMethod = "GET"
-        self.account = acc
 
 
     def getMessages(self):

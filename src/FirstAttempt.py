@@ -74,23 +74,6 @@ def display_message(message_response):
     pass
 
 ####################################################
-################# LEDs #############################
-####################################################
-
-def switch_LEDs(bin):
-    #bin = list of 4 0s or 1s
-    #turn on the LEDs with 1s, off with 0s
-    pass
-
-def flash_LEDs():
-    for j in range(5):
-        time.sleep(.5)
-        switch_LEDs(1111)
-        time.sleep(.5)
-        switch_LEDs(0000)
-        j += 1
-
-####################################################
 ################# CHECKING FOR EVENTS ##############
 ####################################################
 
@@ -292,7 +275,6 @@ def display_page_3(page,emergency_ID):
 
 def emergency(emergency_ID):
     print('emergency')
-    flash_LEDs()
     #filter and rank heroes
     suitable_heroes = find_suitable_heroes(emergency_ID)
     suitable_available_heroes = find_available_heroes(suitable_heroes)
@@ -325,7 +307,6 @@ def home_screen():
         elif button_pressed == 2:
             meeting()
 
-#switch_LEDs(1111)
 #home_screen()
 
 

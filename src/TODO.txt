@@ -34,5 +34,4 @@ Needs esendex:
 -send_request
 
 Extra functionality to add:
--Make LEDs flash (potentially also lights sound) when emergency comes in
 -Set up meetings!

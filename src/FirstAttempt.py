@@ -190,10 +190,10 @@ def write_rankings(emergency_ID,SH_IDs):
     pass
 
 def find_top_3(page):
-    ranking_range = range[page*3 - 2:page*3]
+    ranking_range = range(page*3 - 2,page*3)
     #sort database by rankings
     #return list of SH_IDs of those in ranking range.
-    return[2,3,6]
+    return [2,3,6]
 
 ######### SEND A HERO OR TEAM ########################
 

@@ -9,7 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow, io):
+    def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1908, 1080)
         MainWindow.setStyleSheet("QLabel{background-color:navy}")
@@ -76,7 +76,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        io.comm.gpioButtonPressed.connect(self.clickHandler)
+#        io.comm.gpioButtonPressed.connect(self.clickHandler)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -91,6 +91,7 @@ class Ui_MainWindow(object):
         self.messageBox4.setText(_translate("MainWindow", "TextLabel"))
 
     def clickHandler(self, channel):
+        print("HANDLER")
         print(channel)
 
     def button1(self):

@@ -9,7 +9,7 @@ class SMS_Sender:
     def send_message(self, messageBody, tar):
         #expects message string and target phone number
 
-        payload = create_XML_Message(messageBody,tar)
+        payload = self.create_XML_Message(messageBody,tar)
         headers = {
             'authorization': "Basic bS5jLmhhcnJpc0Bob3RtYWlsLmNvLnVrOm1jaGFja2ZhY2U=",
             'content-type': "application/xml",

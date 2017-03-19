@@ -15,11 +15,12 @@ class ioControl():
         self.comm = ioComm()
 
     def ioConfigure(self):
-        gpio.setmode(gpio.board)
+        gpio.setmode(gpio.BOARD)
         for i in PINS:
-            gpio.setup(i[0], gpio.INPUT, pull_up_down = gpio.PUD_DOWN)
-            gpio.add_event_detect(i[0], gpio.RISING, callback=ioControl.ioButtonCallback)
-
+            gpio.setup(i[0], gpio.IN, pull_up_down = gpio.PUD_DOWN)
+            gpio.add_event_detect(i[0], gpio.RISING, callback=self.ioButtonCallback,bouncetime=200)
+           
+#self.comm.gpioButtonPressed.connect(self.test)
 
     def ioGetStates(self):
         for i in PINS:
@@ -28,4 +29,9 @@ class ioControl():
         return 0
 
     def ioButtonCallback(self, channel):
+        #print("CALLBACK")
         self.comm.gpioButtonPressed.emit(channel)
+
+    def test(self):
+        print("TEST")
+

@@ -5,9 +5,11 @@
 import GUI
 import numpy as np
 import time
+import sender
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QEvent
 from ioInterface import *
+import ioInterface as i
 
 ####################################################
 ################# Calculations #####################
@@ -236,9 +238,12 @@ def emergency(emergency_ID):
 ################# MEETING ##########################
 ####################################################
 
-def meeting():
-    print('meeting')
-    home_screen()
+def meeting(channel):
+    if (channel==8):
+        esender = sender.SMS_Sender("df")
+        esender.send_message("HELP EMERGENCY", "07531661956")
+   # print(channel)
+    
 
 ####################################################
 ################# MAIN FUNCTION ####################
@@ -256,7 +261,7 @@ def home_screen():
         elif button_pressed == 2:
             meeting()
 
-class thewindow(QtWidgets.QMainWindow):
+class thewindow(QtWidgets.QMainWindow,i.ioControl):
     def timerEvent(self, event):
         esend.getMessages()
         emergency(esend.getMostRecentMessage())
@@ -269,13 +274,17 @@ import receiver
 
 esend = receiver.SMS_Reciever()
 esend.getMessages()
-emergency(esend.getMostRecentMessage())
+#emergency(esend.getMostRecentMessage())
+
+ioController = i.ioControl()
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = thewindow()
+MainWindow.ioConfigure()
 ui = GUI.Ui_MainWindow()
 ui.setupUi(MainWindow)
-MainWindow.startTimer(5000)
+MainWindow.comm.gpioButtonPressed.connect(meeting)
+#MainWindow.startTimer(5000)
 
 #xui.blueButton = #SQL Query?
 #ui.redButton = #

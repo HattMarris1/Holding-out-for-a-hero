@@ -25,10 +25,8 @@ def find_distance(SH_loc,scen_loc):
     return R*c
 
 def find_ranking(distance, fraction_desirable_traits):
-    #ranking function preferably around range 0-100
-    #the lower the distance and higher desirable traits the better
-    #return number
-    return 1
+    #ranking function around range 0-100
+    return 70*fraction_desirable_traits + 40/np.sqrt(distance)
 
 ####################################################
 ################# SCREEN DISPLAY ###################

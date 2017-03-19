@@ -1,8 +1,5 @@
 Functions that need completing:
 
-Python only:
--find_ranking
-
 Display:
 -gotoscreen1
 -print_emergency_message

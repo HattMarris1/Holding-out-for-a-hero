@@ -1,15 +1,14 @@
 import requests
 
 class SMS_Sender:
-    def __init__(self, acc):
+    def __init__(self):
         self.MESSAGE_TARGET = "https://api.esendex.com/v1.0/messagedispatcher"
         self.requestMethod = "POST"
-        self.account = acc
 
     def send_message(self, messageBody, tar):
         #expects message string and target phone number
 
-        payload = create_XML_Message(messageBody,tar)
+        payload = self.create_XML_Message(messageBody,tar)
         headers = {
             'authorization': "Basic bS5jLmhhcnJpc0Bob3RtYWlsLmNvLnVrOm1jaGFja2ZhY2U=",
             'content-type': "application/xml",
@@ -33,5 +32,5 @@ class SMS_Sender:
 
         return None
 
-Sender = SMS_Sender("bS5jLmhhcnJpc0Bob3RtYWlsLmNvLnVrOm1jaGFja2ZhY2U")
-print(Sender.create_XML_Message("Emergency","07531661956"))
+#Sender = SMS_Sender("bS5jLmhhcnJpc0Bob3RtYWlsLmNvLnVrOm1jaGFja2ZhY2U")
+#print(Sender.create_XML_Message("Emergency","07531661956"))

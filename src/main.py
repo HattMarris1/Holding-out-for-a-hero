@@ -7,6 +7,10 @@ import numpy as np
 import time
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QEvent
+import sys
+import receiver
+import sender
+
 ####################################################
 ################# Calculations #####################
 ####################################################
@@ -326,26 +330,42 @@ def home_screen():
         elif button_pressed == 2:
             meeting()
 
+def blueButton():
+    ui.blueButton.setStyleSheet("#blueButton{background-color:rgb(0,150,0')")
+    eSender = sender.SMS_Sender()
+    eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
+def yellowButton():
+    ui.yellowButton.setStyleSheet("#yellowButton{background-color:rgb(255, 255, 127)}")
+    eSender = sender.SMS_Sender()
+    eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
+def greenButton():
+    ui.greenButton.setStyleSheet("#greenButton{background-color:rgb(0,128,0)}")
+    eSender = sender.SMS_Sender()
+    eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
+def redButton():
+    ui.redButton.setStyleSheet("#redButton{background-color:rgb(128,0,0)}")
+    eSender = sender.SMS_Sender()
+    eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
+
 class thewindow(QtWidgets.QMainWindow):
     def timerEvent(self, event):
+        redButton()
         esend.getMessages()
-        emergency(esend.getMostRecentMessage())
+        #emergency(esend.getMostRecentMessage())
         display_message(esend.getMostRecentMessage())
-        print("asdf")
+        print(esend.getMostRecentMessage())
 
 #switch_LEDs(1111)
-import sys
-import receiver
-
 esend = receiver.SMS_Reciever("d")
 esend.getMessages()
-emergency(esend.getMostRecentMessage())
+messssage =  esend.getMostRecentMessage()
+#emergency(messssage)
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = thewindow()
 ui = GUI.Ui_MainWindow()
 ui.setupUi(MainWindow)
-MainWindow.startTimer(5000)
+MainWindow.startTimer(10000)
 
 #xui.blueButton = #SQL Query?
 #ui.redButton = #

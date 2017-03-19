@@ -20,12 +20,7 @@ class SMS_Reciever:
 
     def getMostRecentMessage(self):
         tree = etree.fromstring(self.response.text)
-
         number = tree[0][8][0].text
         message = tree[0][9].text
-        print(message, number)
-        return message,number
-
-s = SMS_Reciever("d")
-s.getMessages()
-s.getMostRecentMessage()
+        #print(message, number)
+        return message

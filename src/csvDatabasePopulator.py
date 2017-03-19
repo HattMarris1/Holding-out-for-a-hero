@@ -6,15 +6,20 @@ VALUES_CMD_STUB = "VALUES "
 
 dbEntriesToAppend = []
 
-tarDb = input("db to populate:")
+tarDb = "C:\\Users\\benja_000\\Documents\\Hack24\\Holding-out-for-a-hero\\data\\ControlRoom_test.db"#input("db to populate:")
 tarFile = input("File to include:")
 tarTable = input("Which table are these entries being appended to?")
 
 try:
     #INITIALISE DATABASE
-#    dbConnection = sqlite3.connect(tarDb)
-#    dbConnection.isolation_level = "DEFERRED"
-#    dbCursor = dbConnection.cursor()
+    dbConnection = sqlite3.connect(tarDb)
+    dbConnection.isolation_level = "DEFERRED"
+    dbCursor = dbConnection.cursor()
+
+    dbCursor.execute(".tables")
+    print(dbCursor.fetchall())
+
+    print("Hello")
 
     #OPEN CSV
     dataRead = csv.reader(open(tarFile, newline=''), delimiter=',')#, quitechar=',')

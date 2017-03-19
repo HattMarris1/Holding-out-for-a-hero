@@ -332,6 +332,7 @@ def home_screen():
 
 def blueButton():
     ui.blueButton.setStyleSheet("#blueButton{background-color:rgb(0,150,0')")
+    worldMapOff()
     eSender = sender.SMS_Sender()
     eSender.send_message("WE NEED YOU SUPERMAN!!!", "07531661956")
 def yellowButton():
@@ -344,8 +345,23 @@ def greenButton():
     eSender.send_message("Tech Nottingham has been flooded by Watermelons! Assistance Urgently Needed!", "07531661956")
 def redButton():
     ui.redButton.setStyleSheet("#redButton{background-color:rgb(128,0,0)}")
+    worldMapOff()
     eSender = sender.SMS_Sender()
     eSender.send_message("Hulk needed for to take over from President Trump due to incompetence!", "07531661956")
+
+#Toggle worldMap off
+def worldMapOff():
+    win = Ui_MainWindow()
+    win.label.setPixmap(QtGui.QPixmap(""))
+    #hide? #.visible =false?
+    #self.label.setPixmap(QtGui.QPixmap(""))
+
+#Toggle worldMap on
+def worldMapOn():
+    win = Ui_MainWindow()
+    win.label.setPixmap(QtGui.QPixmap(":/images/worldMap.jpg"))
+    #hide? #.visible =false?
+    #self.label.setPixmap(QtGui.QPixmap("/images/worldMap.jpg"))
 
 class thewindow(QtWidgets.QMainWindow):
     def timerEvent(self, event):

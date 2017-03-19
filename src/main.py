@@ -145,17 +145,17 @@ def buttons_check():
         return 0
 
 ######## Checking for emergencies ##################
-def emergency_read(message_text):
+#def emergency_read(message_text):
     #write time received to database
     #write long description to database (from text)
     #write location to database (from text)
     #print message to screen with print_emergency_message(time,description,location)
     #alter location map with go_to_location(location)
     #return 0 if no emergency, emergency ID if emergency
-    return False
+#    return False
 
 ######## Checking for messages #####################
-def message_check():
+#def message_check():
     # check for received text
     #if message_length > (low number)
     #   emergency_ID = emergency_read(message)
@@ -164,7 +164,7 @@ def message_check():
     #else
     #   error
     # return 0 for no message, emergency ID if emergency, 'Y'/'N' if SH response
-    return False
+#    return False
 
 ####################################################
 ################# EMERGENCY ########################
@@ -178,7 +178,7 @@ def find_suitable_heroes(emergency_ID):
     return [1,2,3,4,6]
 
 def find_available_heroes(SH_IDs):
-    #interface with Chronofy and database to return list of superhero IDs of those available now
+    #interface with Cronofy and database to return list of superhero IDs of those available now
     return [1,2,3,6]
 
 def write_distances(SH_IDs):
@@ -220,7 +220,7 @@ def team_selected(team,emergency_ID):
     if team == 2:
         # team_IDs = SQL query for Justice League's IDs
         pass
-    elif team ==3:
+    elif team == 3:
         # team_IDs = SQL query for X-Men's IDs
         pass
     else:
@@ -337,7 +337,7 @@ def blueButton():
 def yellowButton():
     ui.yellowButton.setStyleSheet("#yellowButton{background-color:rgb(255, 255, 127)}")
     eSender = sender.SMS_Sender()
-    eSender.send_message("Hulk needed for to take over from President Trump due to incompetence!", "07531661956")
+    eSender.send_message("Captain America needed for Forest Fire!", "07531661956")
 def greenButton():
     ui.greenButton.setStyleSheet("#greenButton{background-color:rgb(0,128,0)}")
     eSender = sender.SMS_Sender()
@@ -345,7 +345,7 @@ def greenButton():
 def redButton():
     ui.redButton.setStyleSheet("#redButton{background-color:rgb(128,0,0)}")
     eSender = sender.SMS_Sender()
-    eSender.send_message("Captain America needed for Forest Fire!", "07531661956")
+    eSender.send_message("Hulk needed for to take over from President Trump due to incompetence!", "07531661956")
 
 class thewindow(QtWidgets.QMainWindow):
     def timerEvent(self, event):
@@ -356,7 +356,7 @@ class thewindow(QtWidgets.QMainWindow):
         print(esend.getMostRecentMessage())
 
 #switch_LEDs(1111)
-esend = receiver.SMS_Reciever("d")
+esend = receiver.SMS_Receiver("d")
 esend.getMessages()
 message =  esend.getMostRecentMessage()
 #emergency(message)

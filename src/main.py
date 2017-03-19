@@ -240,24 +240,24 @@ def emergency(emergency_ID):
 
 def meeting(channel):
     if (channel==8):
-        esender = sender.SMS_Sender("df")
+        esender = sender.SMS_Sender()
         esender.send_message("HELP EMERGENCY", "07531661956")
     # print(channel)
 
     if (channel==7):
-       worldMapOff()
-       esender = sender.SMS_Sender("df")
-       eSender.send_message("Hulk needed for to take over from President Trump due to incompetence!", "07531661956")
+       #worldMapOff()
+       esender = sender.SMS_Sender()
+       esender.send_message("Hulk needed for to take over from President Trump due to incompetence!", "07531661956")
     # print(channel)
 
 #Toggle worldMap off
 def worldMapOff():
-    win = Ui_MainWindow()
+    win = MainWindow
     win.label.setPixmap(QtGui.QPixmap(""))
 
 #Toggle worldMap on
 def worldMapOn():
-    win = Ui_MainWindow()
+    win = MainWindow
     win.label.setPixmap(QtGui.QPixmap(":/images/worldMap.jpg"))
 
 ####################################################
@@ -287,7 +287,7 @@ class thewindow(QtWidgets.QMainWindow,i.ioControl):
 import sys
 import receiver
 
-esend = receiver.SMS_Reciever()
+esend = receiver.SMS_Receiver()
 esend.getMessages()
 #emergency(esend.getMostRecentMessage())
 
